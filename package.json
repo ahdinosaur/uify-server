@@ -1,6 +1,6 @@
 {
   "name": "uify-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "browserify development and production server",
   "main": "index.js",
   "scripts": {
