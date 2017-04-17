@@ -24,6 +24,7 @@ const uify = Uify({
 })
 
 const server = createServer((req, res) => {
+  logger(req, res)
   uify(req, res, {}, Send(req, res))
 })
 
