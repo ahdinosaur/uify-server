@@ -5,6 +5,7 @@ const bundleWatcherCache = require('first-cache')
 const bundleMinifier = require('uglifyify')
 const bundleCollapser = require('bundle-collapser/plugin')
 const BundleMiddleware = require('watchify-request')
+const envify = require('envify')
 const LiveReload = require('tiny-lr')
 const Accept = require('accepts')
 const injectLiveReloadScript = require('inject-lr-script')
@@ -75,6 +76,8 @@ function Server (options) {
       })
     }
   }
+
+  bundler.transform(envify, { global: true })
 
   if (optimize) {
     bundler.transform(bundleMinifier, { global: true })
