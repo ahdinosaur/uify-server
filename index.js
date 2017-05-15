@@ -145,7 +145,9 @@ function CachedBundleMiddleware (bundler, log) {
   var error
   const bundleCache = BufferList()
 
-  pump(bundler.bundle(), bundleCache, (err) => {
+  pump(bundler.bundle(onReady), bundleCache)
+
+  function onReady (err) {
     error = err
     if (log && !error) {
       log.info(`bundle size: ${bundleCache.length} bytes`)
@@ -153,7 +155,7 @@ function CachedBundleMiddleware (bundler, log) {
     bundleReady = true
     bundleQueue.forEach(queueItem => queueItem())
     bundleQueue = null
-  })
+  }
 
   return (req, res, context, next) => {
     if (bundleReady) sendBundle()
