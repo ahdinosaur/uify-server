@@ -166,7 +166,7 @@ function CachedBundleMiddleware (bundler, log) {
 
     function sendBundle () {
       if (error) return next(error)
-      res.setHeader('content-type', 'application/json')
+      res.setHeader('content-type', 'application/javascript')
       next(null, bundleCache.duplicate())
     }
   }
