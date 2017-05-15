@@ -165,8 +165,9 @@ function CachedBundleMiddleware (bundler, log) {
     else bundleQueue.push(sendBundle)
 
     function sendBundle () {
-      if (error) next(error)
-      else next(null, bundleCache.duplicate())
+      if (error) return next(error)
+      res.setHeader('content-type', 'application/json')
+      next(null, bundleCache.duplicate())
     }
   }
 }
