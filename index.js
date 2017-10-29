@@ -148,7 +148,7 @@ function CachedBundleMiddleware (bundler, log) {
   var error
   const bundleCache = BufferList()
 
-  pump(bundler.bundle(onReady), bundleCache)
+  pump(bundler.bundle(onReady), bundleCache, onError)
 
   function onReady (err) {
     error = err
@@ -157,7 +157,11 @@ function CachedBundleMiddleware (bundler, log) {
     }
     bundleReady = true
     bundleQueue.forEach(queueItem => queueItem())
-    bundleQueue = []
+    bundleQueue = null
+  }
+
+  function onError (err) {
+    error = err
   }
 
   return (req, res, context, next) => {
