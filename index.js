@@ -157,7 +157,7 @@ function CachedBundleMiddleware (bundler, log) {
     }
     bundleReady = true
     bundleQueue.forEach(queueItem => queueItem())
-    bundleQueue = null
+    bundleQueue = []
   }
 
   function onError (err) {
